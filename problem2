@@ -1,0 +1,104 @@
+#include<iostream>
+using namespace std;
+
+class Player
+{
+        char name[40];
+        char region[20];
+        float bat_avg;
+        float ball_avg;
+        
+    public:
+        void readData()
+        {
+                cout<<"\n Enter Name : ";
+                cin>>name;
+                cout<<"\n Enter Region : ";
+                cin>>region;
+                cout<<"\n Enter batting average :  ";
+                cin>>bat_avg;
+                cout<<"\n Enter balling average :  ";
+                cin>>ball_avg;
+        }
+        friend void generateList(Player P[10], int c);
+        friend void sortList1(Player s[10], int n);
+        friend void sortList2(Player s[10], int n);
+        friend void displayList(Player P[10], int c);
+};
+void generateList(Player P[10], int c)
+{
+    Player A[10];
+    int i,j;
+    for (i=0,j=0; i<c; i++){
+        if ( P[i].bat_avg>30 && P[i].ball_avg<25){
+            A[j]=P[i];
+            j++;
+        }
+        
+    }
+    cout<<"\nList of All Rounder Players : "<<endl;
+    displayList(A,j);
+
+}
+void sortList1(Player s[10], int n)
+{
+    Player t;
+    int i,j;
+        for(i=1;i<=n-1;i++)
+    {
+        for(j=0;j<=n-i;j++)
+        {
+            if(s[j-1].bat_avg>s[j].bat_avg)
+            {
+                t=s[j-1];
+                s[j-1]=s[j];
+                s[j]=t;
+            }
+        }
+    }
+    cout<<"\nList of Players acc to batting Average : "<<endl;
+    displayList(s,n);
+}
+void sortList2(Player s[10], int n)
+{
+    Player t;
+    int i,j;
+        for(i=1;i<=n-1;i++)
+    {
+        for(j=0;j<=n-i;j++)
+        {
+            if(s[j-1].ball_avg>s[j].ball_avg)
+            {
+                t=s[j-1];
+                s[j-1]=s[j];
+                s[j]=t;
+            }
+        }
+    }
+    cout<<"\nList of Players acc to balling Average : "<<endl;
+    displayList(s,n);
+}
+
+void displayList(Player P[10], int c){
+    for (int i=0; i<c; i++){
+    cout<<"\nName: "<<P[i].name<<endl;
+    cout<<"Region: "<<P[i].region<<endl;
+    cout<<"Batting Average: "<<P[i].bat_avg<<endl;
+    cout<<"Balling Average: "<<P[i].ball_avg<<endl;
+    }
+}
+int main()
+{
+        Player p[10];
+        int i,cnt;
+        cout<<"\n Enter number of players : ";
+        cin>>cnt;
+        for(i=0; i<cnt; i++)
+        {
+            p[i].readData();
+        }
+        generateList(p,cnt);
+        sortList1(p,cnt);
+        sortList2(p,cnt);
+        return 0;
+}
