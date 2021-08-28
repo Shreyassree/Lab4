@@ -1,0 +1,84 @@
+#include<iostream>
+using namespace std;
+
+class Electric
+{
+        float unit;
+        char name[20];
+        int number;
+        char c_type[100];
+        long int m_reading;
+        long int lm_reading;
+        char month[100];
+        int bill;
+    public:
+        void accept()
+        {
+                cout<<"\n Enter Name   : ";
+                cin>>name;
+                cout<<"\n Number   :";
+                cin>>number;
+                cout<<"\n consumer type:   ";
+                cin>>c_type;
+                cout<<"\n units:  ";
+                cin>>m_reading;
+                cout<<"\n last month reading:  ";
+                cin>>lm_reading;
+                cout<<"\n month:  ";
+                cin>>month;
+        }
+        void calculateBill();
+        void printBill();
+};
+void Electric::calculateBill()
+{
+        if(c_type=="Commercial")
+        {
+        if(m_reading>=0 && m_reading<=200)
+                bill=5*200;
+        else if(m_reading>200)
+        {
+                bill=(5*200)+((m_reading-200)*10);
+        }
+        else if(c_type=="Non-commercial")
+        {
+            if(m_reading>=0 && m_reading<=100)
+            {
+                bill=3*100;
+            }
+            else if(m_reading>100)
+                bill=300+((m_reading-100)*5);
+        }
+        //cout<<"\n Bill = "<<bill<<"\t"<<name;
+}
+}
+
+void Electric::printBill(){
+    cout<<"\nName: "<<name<<endl;
+    cout<<"Number: "<<number<<endl;
+    cout<<"Customer type: "<<c_type<<endl;
+    cout<<"This month reading: "<<m_reading<<endl;
+    cout<<"Last month reading: "<<lm_reading<<endl;
+    cout<<"Month: "<<month<<endl;
+    cout<<"Bill: "<<bill<<endl;
+}
+int main()
+{
+        Electric e[10];
+        int i,cnt;
+        cout<<"\n Enter How Many Customers You Want? : ";
+        cin>>cnt;
+        for(i=0; i<cnt; i++)
+        {
+                e[i].accept();
+        }
+        for(i=0; i<cnt; i++)
+        {
+            e[i].calculateBill();
+        }
+        for (i=0; i<cnt; i++)
+        {
+            e[i].printBill();
+        }
+        return 0;
+}
